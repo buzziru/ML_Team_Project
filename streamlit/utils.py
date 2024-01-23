@@ -64,7 +64,7 @@ def load_models():
         'xgb': 'XGBoost',
         'rf': 'Random Forest'
     }
-    for filename in os.listdir('ml/models'):
+    for filename in os.listdir('streamlit/ml/models'):
         if filename.endswith('_gs.joblib'):
             model_path = os.path.join('./ml/models', filename)
             loaded_model = joblib.load(model_path)
