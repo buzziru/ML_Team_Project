@@ -45,7 +45,7 @@ def run_test():
 
     st.markdown("##### 테스트 데이터\n"
                 '- 데이터 포인트 : 10,002개')
-    st.divider()
+    st.markdown('<hr>', unsafe_allow_html=True)
     
     for model in models:        
         if isinstance(model.estimator, CatBoostClassifier):
