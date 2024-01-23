@@ -66,7 +66,7 @@ def load_models():
     }
     for filename in os.listdir('streamlit/ml/models'):
         if filename.endswith('_gs.joblib'):
-            model_path = os.path.join('./ml/models', filename)
+            model_path = os.path.join('streamlit/ml/models', filename)
             loaded_model = joblib.load(model_path)
             
             name = filename.split('_gs')[0]
