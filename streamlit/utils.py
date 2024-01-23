@@ -9,13 +9,13 @@ import joblib
 
 @st.cache_data
 def load_data():
-    data = pd.read_csv('../data/train.csv/train.csv')
+    data = pd.read_csv('data/train.csv/train.csv')
     return data
 
 
 @st.cache_data
 def load_test_data():
-    data = pd.read_csv('../data/bank_turnover/Churn_Modelling.csv')
+    data = pd.read_csv('data/bank_turnover/Churn_Modelling.csv')
     return data
 
 
