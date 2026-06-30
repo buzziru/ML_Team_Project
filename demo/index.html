@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>은행 이탈 고객 예측 데모</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>은행의 이탈 고객 예측 모델 <span aria-hidden="true">🏦</span></h1>
+    <p class="subtitle">이탈 여부를 예측하려고 하는 고객의 데이터를 입력하세요</p>
+
+    <form id="churn-form" autocomplete="off">
+      <!-- CreditScore -->
+      <div class="field">
+        <label for="CreditScore">신용점수</label>
+        <div class="stepper">
+          <input type="number" id="CreditScore" value="650" min="350" max="850" step="1" />
+          <button type="button" class="step" data-target="CreditScore" data-dir="-1">−</button>
+          <button type="button" class="step" data-target="CreditScore" data-dir="1">+</button>
+        </div>
+      </div>
+
+      <!-- Age -->
+      <div class="field">
+        <label for="Age">나이</label>
+        <div class="stepper">
+          <input type="number" id="Age" value="37" min="18" max="92" step="1" />
+          <button type="button" class="step" data-target="Age" data-dir="-1">−</button>
+          <button type="button" class="step" data-target="Age" data-dir="1">+</button>
+        </div>
+      </div>
+
+      <!-- Tenure (slider) -->
+      <div class="field">
+        <label for="Tenure">거래 기간 <output id="Tenure-out">5</output></label>
+        <input type="range" id="Tenure" value="5" min="0" max="10" step="1" />
+      </div>
+
+      <!-- Balance -->
+      <div class="field">
+        <label for="Balance">잔고</label>
+        <div class="stepper">
+          <input type="number" id="Balance" value="0" min="0" max="250899" step="1000" />
+          <button type="button" class="step" data-target="Balance" data-dir="-1" data-step="1000">−</button>
+          <button type="button" class="step" data-target="Balance" data-dir="1" data-step="1000">+</button>
+        </div>
+      </div>
+
+      <!-- NumOfProducts (slider) -->
+      <div class="field">
+        <label for="NumOfProducts">가입 상품 수 <output id="NumOfProducts-out">2</output></label>
+        <input type="range" id="NumOfProducts" value="2" min="1" max="4" step="1" />
+      </div>
+
+      <!-- HasCrCard -->
+      <fieldset class="field">
+        <legend>당행의 신용카드를 보유하고 있습니까?</legend>
+        <label class="radio"><input type="radio" name="HasCrCard" value="1" checked /> Yes</label>
+        <label class="radio"><input type="radio" name="HasCrCard" value="0" /> No</label>
+      </fieldset>
+
+      <!-- IsActiveMember -->
+      <fieldset class="field">
+        <legend>현재 활성멤버 입니까?</legend>
+        <label class="radio"><input type="radio" name="IsActiveMember" value="1" checked /> Yes</label>
+        <label class="radio"><input type="radio" name="IsActiveMember" value="0" /> No</label>
+      </fieldset>
+
+      <!-- EstimatedSalary -->
+      <div class="field">
+        <label for="EstimatedSalary">추정 연봉을 입력하세요</label>
+        <div class="stepper">
+          <input type="number" id="EstimatedSalary" value="100000" min="0" max="200000" step="1000" />
+          <button type="button" class="step" data-target="EstimatedSalary" data-dir="-1" data-step="1000">−</button>
+          <button type="button" class="step" data-target="EstimatedSalary" data-dir="1" data-step="1000">+</button>
+        </div>
+      </div>
+
+      <!-- Geography -->
+      <div class="field">
+        <label for="Geography">거주 국가</label>
+        <select id="Geography">
+          <option value="France">France</option>
+          <option value="Germany">Germany</option>
+          <option value="Spain">Spain</option>
+        </select>
+      </div>
+
+      <!-- Gender -->
+      <fieldset class="field">
+        <legend>성별</legend>
+        <label class="radio"><input type="radio" name="Gender" value="Male" checked /> Male</label>
+        <label class="radio"><input type="radio" name="Gender" value="Female" /> Female</label>
+      </fieldset>
+
+      <button type="submit" id="predict-btn" disabled>모델 불러오는 중…</button>
+    </form>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="verdict" id="verdict"></div>
+      <div class="gauge"><div class="gauge-fill" id="gauge-fill"></div></div>
+      <div class="proba" id="proba"></div>
+      <p class="note">CatBoost 모델 · 브라우저 내 ONNX 추론 (서버 없음)</p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
